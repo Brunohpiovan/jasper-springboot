@@ -24,12 +24,11 @@ public class JasperReportService {
     public static final String CERTIFICADOS = "classpath:jasper/certificados/";
     public static final String ARQUIVOJRXML = "relatorio.jrxml";
     public static final Logger LOGGER = LoggerFactory.getLogger(JasperReportService.class);
-    public static final String DESTINOPDF = "c:\\jasper-report\\";
 
     @Autowired
     private AlunoRepository alunoRepository;
 
-    public void gerar() throws IOException {
+    public byte[] gerar() throws IOException {
 
 
         List<AlunoDTO> alunos = alunoRepository.findAlunosWithCursos();
@@ -39,36 +38,25 @@ public class JasperReportService {
         Map<String, Object> params = new HashMap<>();
 
         try{
-            String folderDiretorio = getDiretorioSave("relatorio-salvos");
             JasperReport report = JasperCompileManager.compileReport(pathAbsoluto);
             LOGGER.info("report compilado: {} ", pathAbsoluto);
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(alunos);
             JasperPrint print = JasperFillManager.fillReport(report,params,dataSource);
-            LOGGER.info("jasper print");
+            LOGGER.info("Relatorio preenchico com sucesso");
 
             // Exportar o relatório para um arquivo PDF
-            JasperExportManager.exportReportToPdfFile(print, folderDiretorio);
-            LOGGER.info("PDF EXPORTADO PARA:{}", folderDiretorio);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            JasperExportManager.exportReportToPdfStream(print, outputStream);
+            LOGGER.info("PDF gerado");
+
+            return outputStream.toByteArray();
 
         } catch (JRException e) {
             throw new RuntimeException(e);
         }
     }
 
-
-    private String getDiretorioSave(String name) {
-        this.createDiretorio(DESTINOPDF );
-        return DESTINOPDF+name.concat(".pdf");
-
-    }
-
-    private void createDiretorio(String name) {
-        File dir = new File(name);
-        if(!dir.exists()){
-            dir.mkdir();
-        }
-    }
 
     private String getAbsolutPath() throws FileNotFoundException {
         return ResourceUtils.getFile(CERTIFICADOS+ARQUIVOJRXML).getAbsolutePath();

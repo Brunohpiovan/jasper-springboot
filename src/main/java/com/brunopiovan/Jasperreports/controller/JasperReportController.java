@@ -2,10 +2,10 @@ package com.brunopiovan.Jasperreports.controller;
 
 import com.brunopiovan.Jasperreports.model.Aluno;
 import com.brunopiovan.Jasperreports.service.JasperReportService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,9 +19,14 @@ public class JasperReportController {
     public JasperReportController(JasperReportService jasperReportService) {
         this.jasperReportService = jasperReportService;
     }
+    
+    @GetMapping("/relatorio")
+    public ResponseEntity<byte[]> gerarRelatorio() throws IOException {
+        byte[] relatorioBytes = jasperReportService.gerar();
 
-    @PostMapping("/gerar-certificado")
-    public void gerar() throws IOException {
-        this.jasperReportService.gerar();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=relatorio.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(relatorioBytes);
     }
 }
