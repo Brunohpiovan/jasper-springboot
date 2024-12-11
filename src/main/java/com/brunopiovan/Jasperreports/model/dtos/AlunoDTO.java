@@ -1,6 +1,5 @@
-package com.brunopiovan.Jasperreports.model;
+package com.brunopiovan.Jasperreports.model.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

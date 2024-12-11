@@ -1,12 +1,10 @@
 package com.brunopiovan.Jasperreports.service;
 
 
-import com.brunopiovan.Jasperreports.model.Aluno;
-import com.brunopiovan.Jasperreports.model.AlunoDTO;
+import com.brunopiovan.Jasperreports.model.dtos.AlunoDTO;
 import com.brunopiovan.Jasperreports.repositories.AlunoRepository;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

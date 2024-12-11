@@ -1,7 +1,7 @@
 package com.brunopiovan.Jasperreports.controller;
 
 import com.brunopiovan.Jasperreports.model.Aluno;
-import com.brunopiovan.Jasperreports.model.AlunoDTO;
+import com.brunopiovan.Jasperreports.model.dtos.AlunoDTO;
 import com.brunopiovan.Jasperreports.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

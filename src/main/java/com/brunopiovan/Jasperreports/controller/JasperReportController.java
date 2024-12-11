@@ -19,7 +19,7 @@ public class JasperReportController {
     public JasperReportController(JasperReportService jasperReportService) {
         this.jasperReportService = jasperReportService;
     }
-    
+
     @GetMapping("/relatorio")
     public ResponseEntity<byte[]> gerarRelatorio() throws IOException {
         byte[] relatorioBytes = jasperReportService.gerar();

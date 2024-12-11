@@ -1,7 +1,7 @@
 package com.brunopiovan.Jasperreports.service;
 
 import com.brunopiovan.Jasperreports.model.Aluno;
-import com.brunopiovan.Jasperreports.model.AlunoDTO;
+import com.brunopiovan.Jasperreports.model.dtos.AlunoDTO;
 import com.brunopiovan.Jasperreports.repositories.AlunoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
